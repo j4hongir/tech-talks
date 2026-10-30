@@ -1,5 +1,7 @@
 # hrmanage
 
+https://www.figma.com/deck/pauUgFsScMTmwWjUODW2px/windows7_security_minimal?node-id=0-22&t=6NHChTFYTYS84Cu1-1
+
 HR-система на базе микросервисов: PostgreSQL + FastAPI + nginx/HTML — всё в  Minikube
 ## Архитектура
 ```
