@@ -1,0 +1,19 @@
+<section id="list-view" aria-labelledby="talks-title">
+  <header class="page-heading collection-heading">
+    <div><p class="eyebrow">Архив / Обмен опытом</p><h1 id="talks-title">Выступления</h1><p class="page-description">Технические доклады без чёрных ящиков.<br>Презентации, исходный код и практические примеры.</p></div>
+    <a class="small-link repo-link" href="https://github.com/j4hongir/tech-talks" target="_blank" rel="noopener noreferrer">Репозиторий ↗</a>
+  </header>
+  <div class="archive-toolbar"><span>Доклады и материалы</span><span id="collection-count" role="status" aria-live="polite"></span></div>
+  <div id="list" class="collection-list" aria-busy="true"><div class="state" role="status"><span class="loading-line" aria-hidden="true"></span>Загружаю выступления…</div></div>
+  <p class="collection-note">У каждого доклада — README, исходники и слайды, если они есть в репозитории.</p>
+  <noscript><p class="state">Все материалы доступны <a href="https://github.com/j4hongir/tech-talks">в репозитории выступлений ↗</a>.</p></noscript>
+</section>
+<section id="detail" class="talk-detail" aria-labelledby="d-title" hidden>
+  <button class="back-button" id="back" type="button">← Все выступления</button>
+  <header class="page-heading">
+    <p class="eyebrow" id="d-date"></p><h1 id="d-title" tabindex="-1"></h1>
+    <p class="page-description" id="d-desc"></p><div class="collection-tags" id="d-tags"></div>
+    <div class="detail-actions" id="d-actions"></div>
+  </header>
+  <div class="readme-section"><p class="eyebrow">README.md</p><div class="prose" id="d-readme" aria-busy="true"></div></div>
+</section>
