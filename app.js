@@ -39,21 +39,20 @@
   }
   function renderList() {
     list.replaceChildren();
-    if (!talks.length) { list.append(text('p', 'state', 'Выступления скоро появятся.')); return; }
+    if (!talks.length) { list.append(text('p', 'state', 'Доклады скоро появятся.')); return; }
     for (const talk of talks) {
       const button = document.createElement('button'); button.type = 'button'; button.className = 'collection-row'; button.dataset.id = talk.id;
       const body = text('span', 'collection-body', ''); body.append(text('span', 'collection-title', talk.title));
       if (talk.desc) body.append(text('span', 'collection-description', talk.desc));
       if (talk.tags.length) { const tags = text('span', 'collection-tags', ''); talk.tags.forEach(tag => tags.append(text('span', '', tag))); body.append(tags); }
-      const arrow = text('span', 'collection-arrow', '↗'); arrow.setAttribute('aria-hidden', 'true');
-      button.append(text('span', 'collection-category', talk.date ? dateLabel(talk.date) : 'Материалы'), body, text('span', 'file-type', 'README'), arrow);
+      button.append(text('span', 'collection-category', talk.date ? dateLabel(talk.date) : 'Материалы'), body, text('span', 'file-type', 'README'));
       button.addEventListener('click', () => { opener = button; listScroll = window.scrollY; history.pushState({eacTalk: true}, '', '#' + encodeURIComponent(talk.id)); openDetail(talk); });
       list.append(button);
     }
   }
   async function load() {
     list.setAttribute('aria-busy', 'true');
-    list.innerHTML = '<div class="state" role="status"><span class="loading-line" aria-hidden="true"></span>Загружаю выступления…</div>';
+    list.innerHTML = '<div class="state" role="status"><span class="loading-line" aria-hidden="true"></span>Загружаю доклады…</div>';
     try {
       const dirs = (await get('')).filter(file => file.type === 'dir' && !SKIP.has(file.name) && !file.name.startsWith('.'));
       talks = await Promise.all(dirs.map(async dir => {
@@ -68,7 +67,7 @@
       const state = text('div', 'state', ''); state.setAttribute('role', 'status');
       state.append(text('p', '', 'GitHub временно не отвечает или достигнут лимит запросов. Материалы доступны в репозитории.'));
       const retry = text('button', 'retry-button', 'Повторить'); retry.type = 'button'; retry.addEventListener('click', load);
-      const links = text('div', 'detail-actions', ''); links.append(retry, action(tree(''), 'Открыть репозиторий ↗')); state.append(links); list.replaceChildren(state);
+      const links = text('div', 'detail-actions', ''); links.append(retry, action(tree(''), 'Открыть репозиторий')); state.append(links); list.replaceChildren(state);
     } finally { list.setAttribute('aria-busy', 'false'); }
   }
   async function openDetail(talk) {
@@ -77,7 +76,7 @@
     document.getElementById('d-title').textContent = talk.title;
     document.getElementById('d-desc').textContent = talk.desc;
     document.getElementById('d-tags').replaceChildren(...talk.tags.map(tag => text('span', '', tag)));
-    actions.replaceChildren(action(tree(talk.id), 'Исходный код ↗', true));
+    actions.replaceChildren(action(tree(talk.id), 'Исходный код', true));
     readme.innerHTML = '<div class="state" role="status"><span class="loading-line" aria-hidden="true"></span>Загружаю README…</div>';
     readme.setAttribute('aria-busy', 'true'); listView.hidden = true; detail.hidden = false;
     window.scrollTo({top: 0, behavior: 'instant'}); document.getElementById('d-title').focus({preventScroll: true});
@@ -96,7 +95,7 @@
         }
       }
       if (current !== requestId) return;
-      if (pdfPath) actions.append(action(gh(pdfPath), 'Слайды · PDF ↗'));
+      if (pdfPath) actions.append(action(gh(pdfPath), 'Слайды · PDF'));
       const file = files.find(file => file.type === 'file' && file.name.toLowerCase() === 'readme.md');
       if (!file) { readme.replaceChildren(text('p', 'state', 'README пока нет. Исходники доступны по ссылке выше.')); return; }
       const data = await get(`${talk.id}/${file.name}`);
